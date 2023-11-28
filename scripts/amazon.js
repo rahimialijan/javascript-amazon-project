@@ -1,8 +1,12 @@
+import products from '../data/products.js';
+
 let productsHTML = '';
 
-products.forEach((product)=> {
-    const {image, name, rating, priceCents} = product;
-    productsHTML += `
+products.forEach((product) => {
+  const {
+    image, name, rating, priceCents,
+  } = product;
+  productsHTML += `
         <div class="product-container">
         <div class="product-image-container">
         <img class="product-image"
@@ -22,7 +26,7 @@ products.forEach((product)=> {
         </div>
 
         <div class="product-price">
-        $${(priceCents/100).toFixed(2)}
+        $${(priceCents / 100).toFixed(2)}
         </div>
 
         <div class="product-quantity-container">
@@ -50,7 +54,7 @@ products.forEach((product)=> {
         <button class="add-to-cart-button button-primary">
         Add to Cart
         </button>
-    </div>`
-})
+    </div>`;
+});
 
 document.querySelector('.products-grid').innerHTML = productsHTML;
