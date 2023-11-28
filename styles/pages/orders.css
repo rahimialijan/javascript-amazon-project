@@ -28,11 +28,9 @@
 .order-header {
   background-color: rgb(240, 242, 242);
   border: 1px solid rgb(213, 217, 217);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 20px 25px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -91,7 +89,6 @@
   border-top: none;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-
   display: grid;
   grid-template-columns: 110px 1fr 220px;
   column-gap: 35px;
@@ -140,7 +137,6 @@
   width: 140px;
   height: 36px;
   border-radius: 8px;
-
   display: flex;
   align-items: center;
   justify-content: center;
