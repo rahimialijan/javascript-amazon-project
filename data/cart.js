@@ -1,6 +1,3 @@
-
-
-
-const cart = []
+const cart = [];
 
 export default cart;

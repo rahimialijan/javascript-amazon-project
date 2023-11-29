@@ -1,10 +1,12 @@
-import products from "../data/products.js";
-import cart from "../data/cart.js";
+import products from '../data/products.js';
+import cart from '../data/cart.js';
 
-let productsHTML = "";
+let productsHTML = '';
 
 products.forEach((product) => {
-  const { image, name, rating, priceCents, id } = product;
+  const {
+    image, name, rating, priceCents, id,
+  } = product;
   productsHTML += `
         <div class="product-container">
         <div class="product-image-container">
@@ -56,11 +58,11 @@ products.forEach((product) => {
     </div>`;
 });
 
-document.querySelector(".products-grid").innerHTML = productsHTML;
+document.querySelector('.products-grid').innerHTML = productsHTML;
 
-document.querySelectorAll(".add-to-cart-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
+document.querySelectorAll('.add-to-cart-button').forEach((button) => {
+  button.addEventListener('click', () => {
+    const { productId } = button.dataset;
     let matchingItem;
     cart.forEach((item) => {
       if (item.productId === productId) {
@@ -71,15 +73,15 @@ document.querySelectorAll(".add-to-cart-button").forEach((button) => {
       matchingItem.quentity += 1;
     } else {
       cart.push({
-        productId: productId,
+        productId,
         quentity: 1,
       });
     }
 
     let cartQuentity = 0;
     cart.forEach((item) => {
-      cartQuentity = cartQuentity + item.quentity;
+      cartQuentity += item.quentity;
     });
-    document.querySelector(".cart-quantity").innerHTML = cartQuentity;
+    document.querySelector('.cart-quantity').innerHTML = cartQuentity;
   });
 });
