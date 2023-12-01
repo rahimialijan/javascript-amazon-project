@@ -1,5 +1,6 @@
 import { cart } from "../data/cart.js";
 import products from "../data/products.js";
+import { priceToUS } from "./utility/utility.js";
 
 let matchingItems = [];
 
@@ -33,7 +34,7 @@ matchingItems.forEach((orderCart) => {
           ${orderCart.product.name}
         </div>
         <div class="product-price">
-          $${orderCart.product.priceCents}
+          $${priceToUS(orderCart.product.priceCents)}
         </div>
         <div class="product-quantity">
           <span>
