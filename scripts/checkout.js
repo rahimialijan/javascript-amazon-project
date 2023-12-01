@@ -1,6 +1,7 @@
-import { cart } from "../data/cart.js";
+import { cart, removeOrderedItem } from "../data/cart.js";
 import products from "../data/products.js";
 import { priceToUS } from "./utility/utility.js";
+
 
 let matchingItems = [];
 
@@ -14,13 +15,12 @@ products.forEach((product) => {
     }
   });
 });
-console.log(matchingItems)
 
 let orderCartsHTML = "";
 
 matchingItems.forEach((orderCart) => {
   orderCartsHTML += `
-    <div class="cart-item-container">
+    <div class="cart-item-container cart-order-container-${orderCart.product.id}">
     <div class="delivery-date">
       Delivery date: Tuesday, June 21
     </div>
@@ -45,7 +45,7 @@ matchingItems.forEach((orderCart) => {
           <span class="update-quantity-link link-primary">
             Update
           </span>
-          <span class="delete-quantity-link link-primary">
+          <span class="delete-quantity-link link-primary" data-ordercart-id ="${orderCart.product.id}">
             Delete
           </span>
         </div>
@@ -97,8 +97,17 @@ matchingItems.forEach((orderCart) => {
       </div>
     </div>
   </div>
-    
     `;
 });
 
 document.querySelector('.order-summary').innerHTML = orderCartsHTML;
+
+
+document.querySelectorAll('.delete-quantity-link').forEach((deleteBTN)=>{
+  deleteBTN.addEventListener('click', ()=>{
+      const {ordercartId} = deleteBTN.dataset
+      removeOrderedItem(ordercartId)
+      const cartContainer = document.querySelector(`.cart-order-container-${ordercartId}`);
+      cartContainer.remove()
+  })
+})
