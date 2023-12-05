@@ -1,5 +1,6 @@
 import products from '../data/products.js';
-import cart from '../data/cart.js';
+import { cart, generateCart } from '../data/cart.js';
+import priceToUS from './utility/utility.js';
 
 let productsHTML = '';
 
@@ -27,7 +28,7 @@ products.forEach((product) => {
         </div>
 
         <div class="product-price">
-        $${(priceCents / 100).toFixed(2)}
+        $${priceToUS(priceCents)}
         </div>
 
         <div class="product-quantity-container">
@@ -60,28 +61,18 @@ products.forEach((product) => {
 
 document.querySelector('.products-grid').innerHTML = productsHTML;
 
+function orderQuantity() {
+  let cartQuentity = 0;
+  cart.forEach((item) => {
+    cartQuentity += item.quentity;
+  });
+  document.querySelector('.cart-quantity').innerHTML = cartQuentity;
+}
+
 document.querySelectorAll('.add-to-cart-button').forEach((button) => {
   button.addEventListener('click', () => {
     const { productId } = button.dataset;
-    let matchingItem;
-    cart.forEach((item) => {
-      if (item.productId === productId) {
-        matchingItem = item;
-      }
-    });
-    if (matchingItem) {
-      matchingItem.quentity += 1;
-    } else {
-      cart.push({
-        productId,
-        quentity: 1,
-      });
-    }
-
-    let cartQuentity = 0;
-    cart.forEach((item) => {
-      cartQuentity += item.quentity;
-    });
-    document.querySelector('.cart-quantity').innerHTML = cartQuentity;
+    generateCart(productId);
+    orderQuantity();
   });
 });
