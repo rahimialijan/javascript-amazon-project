@@ -1,6 +1,6 @@
 import products from '../data/products.js';
-import {cart, generateCart} from '../data/cart.js';
-import { priceToUS } from './utility/utility.js';
+import { cart, generateCart } from '../data/cart.js';
+import priceToUS from './utility/utility.js';
 
 let productsHTML = '';
 
@@ -61,12 +61,12 @@ products.forEach((product) => {
 
 document.querySelector('.products-grid').innerHTML = productsHTML;
 
-function orderQuantity(){
+function orderQuantity() {
   let cartQuentity = 0;
-    cart.forEach((item) => {
-      cartQuentity += item.quentity;
-    });
-    document.querySelector('.cart-quantity').innerHTML = cartQuentity;
+  cart.forEach((item) => {
+    cartQuentity += item.quentity;
+  });
+  document.querySelector('.cart-quantity').innerHTML = cartQuentity;
 }
 
 document.querySelectorAll('.add-to-cart-button').forEach((button) => {

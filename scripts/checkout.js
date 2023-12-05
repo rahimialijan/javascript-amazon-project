@@ -1,15 +1,14 @@
-import { cart, removeOrderedItem } from "../data/cart.js";
-import products from "../data/products.js";
-import { priceToUS } from "./utility/utility.js";
+import { cart, removeOrderedItem } from '../data/cart.js';
+import products from '../data/products.js';
+import priceToUS from './utility/utility.js';
 
-
-let matchingItems = [];
+const matchingItems = [];
 
 products.forEach((product) => {
   cart.forEach((cartItem) => {
     if (product.id === cartItem.id) {
       matchingItems.push({
-        product: product,
+        product,
         quantity: cartItem.quentity,
         ordercartId: cartItem.id,
       });
@@ -17,7 +16,7 @@ products.forEach((product) => {
   });
 });
 
-let orderCartsHTML = "";
+let orderCartsHTML = '';
 
 matchingItems.forEach((orderCart) => {
   orderCartsHTML += `
@@ -103,12 +102,11 @@ matchingItems.forEach((orderCart) => {
 
 document.querySelector('.order-summary').innerHTML = orderCartsHTML;
 
-
-document.querySelectorAll('.delete-quantity-link').forEach((deleteBTN)=>{
-  deleteBTN.addEventListener('click', ()=>{
-      const {ordercartId} = deleteBTN.dataset
-      removeOrderedItem(ordercartId)
-      const cartContainer = document.querySelector(`.cart-order-container-${ordercartId}`);
-      cartContainer.remove()
-  })
-})
+document.querySelectorAll('.delete-quantity-link').forEach((deleteBTN) => {
+  deleteBTN.addEventListener('click', () => {
+    const { ordercartId } = deleteBTN.dataset;
+    removeOrderedItem(ordercartId);
+    const cartContainer = document.querySelector(`.cart-order-container-${ordercartId}`);
+    cartContainer.remove();
+  });
+});
