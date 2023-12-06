@@ -1,8 +1,8 @@
-import { cart, removeOrderedItem } from "../data/cart.js";
-import products from "../data/products.js";
-import priceToUS from "./utility/utility.js";
-import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliveryOption } from "../data/deliveryOption.js";
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import { cart, removeOrderedItem } from '../data/cart.js';
+import products from '../data/products.js';
+import priceToUS from './utility/utility.js';
+import { deliveryOption } from '../data/deliveryOption.js';
 
 const matchingItems = [];
 products.forEach((product) => {
@@ -17,14 +17,14 @@ products.forEach((product) => {
   });
 });
 
-let orderCartsHTML = "";
+let orderCartsHTML = '';
 
 matchingItems.forEach((orderCart) => {
-  const cartId = orderCart.product.id
+  const cartId = orderCart.product.id;
   orderCartsHTML += `
     <div class="cart-item-container cart-order-container-${
-      orderCart.product.id
-    }">
+  orderCart.product.id
+}">
     <div class="delivery-date">
       Delivery date: Tuesday, June 21
     </div>
@@ -50,8 +50,8 @@ matchingItems.forEach((orderCart) => {
             Update
           </span>
           <span class="delete-quantity-link link-primary" data-ordercart-id ="${
-            orderCart.product.id
-          }">
+  orderCart.product.id
+}">
             Delete
           </span>
         </div>
@@ -69,24 +69,23 @@ matchingItems.forEach((orderCart) => {
 });
 
 function deliveryOptionHTML(cartId) {
-   let html = ''
+  let html = '';
   deliveryOption.forEach((deliveryOption) => {
-
     const now = dayjs();
 
     const deliveryDay = now.add(
       deliveryOption.deliveryDays,
-      'days'
-    )
+      'days',
+    );
 
-    const dayString = deliveryDay.format("dddd, MMMM D");
+    const dayString = deliveryDay.format('dddd, MMMM D');
 
     const shippingCost = deliveryOption.pricCents === 0
       ? 'FREE'
       : priceToUS(deliveryOption.pricCents);
 
-    html +=
-    `
+    html
+    += `
       <div class="delivery-option">
         <input type="radio"
           class="delivery-option-input"
@@ -103,19 +102,17 @@ function deliveryOptionHTML(cartId) {
     `;
   });
 
-  return html
+  return html;
 }
 
+document.querySelector('.order-summary').innerHTML = orderCartsHTML;
 
-
-document.querySelector(".order-summary").innerHTML = orderCartsHTML;
-
-document.querySelectorAll(".delete-quantity-link").forEach((deleteBTN) => {
-  deleteBTN.addEventListener("click", () => {
+document.querySelectorAll('.delete-quantity-link').forEach((deleteBTN) => {
+  deleteBTN.addEventListener('click', () => {
     const { ordercartId } = deleteBTN.dataset;
     removeOrderedItem(ordercartId);
     const cartContainer = document.querySelector(
-      `.cart-order-container-${ordercartId}`
+      `.cart-order-container-${ordercartId}`,
     );
     cartContainer.remove();
   });
