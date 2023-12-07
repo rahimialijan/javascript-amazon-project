@@ -12,6 +12,7 @@ products.forEach((product) => {
         product,
         quantity: cartItem.quentity,
         ordercartId: cartItem.id,
+        deliveryOptionId: cartItem.deliveryOptionId
       });
     }
   });
@@ -21,6 +22,7 @@ let orderCartsHTML = '';
 
 matchingItems.forEach((orderCart) => {
   const cartId = orderCart.product.id;
+  const deliveryOptionId = orderCart.deliveryOptionId;
   orderCartsHTML += `
     <div class="cart-item-container cart-order-container-${
   orderCart.product.id
@@ -61,14 +63,14 @@ matchingItems.forEach((orderCart) => {
         <div class="delivery-options-title">
           Choose a delivery option:
         </div>
-        ${deliveryOptionHTML(cartId)}
+        ${deliveryOptionHTML(cartId, deliveryOptionId)}
       </div>
     </div>
   </div>
     `;
 });
 
-function deliveryOptionHTML(cartId) {
+function deliveryOptionHTML(cartId, deliveryOptionId) {
   let html = '';
   deliveryOption.forEach((deliveryOption) => {
     const now = dayjs();
@@ -84,10 +86,14 @@ function deliveryOptionHTML(cartId) {
       ? 'FREE'
       : priceToUS(deliveryOption.pricCents);
 
+      const isChecked = deliveryOption.id === deliveryOptionId
+        ? 'checked'
+        : "";
+
     html
     += `
       <div class="delivery-option">
-        <input type="radio"
+        <input type="radio" ${isChecked}
           class="delivery-option-input"
           name="delivery-option-${cartId}">
         <div>
