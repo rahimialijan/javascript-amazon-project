@@ -18,12 +18,12 @@ products.forEach((product) => {
   });
 });
 
-
   let orderCartsHTML = "";
 
   matchingItems.forEach((orderCart) => {
-    const cartId = orderCart.product.id;
-    const deliveryOptionId = orderCart.deliveryOptionId;
+    const cartId = orderCart.ordercartId;
+    const deliveryId = orderCart.deliveryOptionId;
+  
     /*
     let deliveryotion;
     deliveryOption.forEach((option) => {
@@ -32,9 +32,11 @@ products.forEach((product) => {
       }
     });
     */
-    let deliveryotion = deliveryOption.find((option) =>option.id===deliveryOptionId)
+    let delvryOption = deliveryOption.find((option) =>option.id===deliveryId)
+    console.log(delvryOption)
     const now = dayjs();
-    const deliveryDay = now.add(deliveryotion.deliveryDays, "days");
+    const deliveryDay = now.add(delvryOption.deliveryDays, "days");
+
     const dayString = deliveryDay.format("dddd, MMMM D");
 
     orderCartsHTML += `
@@ -74,7 +76,7 @@ products.forEach((product) => {
       <div class="delivery-options">
         <div class="delivery-options-title">
           Choose a delivery option:
-          ${deliveryOptionHTML(cartId, deliveryOptionId)}
+          ${deliveryOptionHTML(cartId, deliveryId)}
         </div>
       </div>
     </div>
